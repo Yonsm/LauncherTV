@@ -96,19 +96,19 @@ public class ApplicationView extends LinearLayout {
 		mMenuClickListener = clickListener;
 	}
 
-	private void setBackgroundStateDrawable(float transparency) {
+	private void setBackgroundStateDrawable(boolean isDefault, float transparency) {
 		StateListDrawable stateListDrawable = new StateListDrawable();
 
 		Drawable drawableEnabled = createTileShape(
-				mBackgroundColors[mBackgroundIndex++ % mBackgroundColors.length], //Color.argb(getTransparency(transparency, 0.0F), 0xF0, 0xF0, 0xF0),
+				isDefault ? mBackgroundColors[mBackgroundIndex++ % mBackgroundColors.length] : Color.argb(getTransparency(transparency, 0.0F), 0xF0, 0xF0, 0xF0),
 				Color.argb(0xFF, 0x90, 0x90, 0x90)
 		);
 		Drawable drawableFocused = createTileShape(
-				0xFFff5722, //Color.argb(getTransparency(transparency, 0.4F), 0xE0, 0xE0, 0xFF),
+				isDefault ? 0xFFff5722 : Color.argb(getTransparency(transparency, 0.4F), 0xE0, 0xE0, 0xFF),
 				Color.argb(0xFF, 0x90, 0x90, 0x90)
 		);
 		Drawable drawablePressed = createTileShape(
-				0xFFff9800, //Color.argb(getTransparency(transparency, 0.8F), 0xE0, 0xE0, 0xFF),
+				isDefault ? 0xFFff9800 : Color.argb(getTransparency(transparency, 0.8F), 0xE0, 0xE0, 0xFF),
 				Color.argb(0xFF, 0x00, 0x00, 0x00)
 		);
 
@@ -143,11 +143,8 @@ public class ApplicationView extends LinearLayout {
 		setClickable(true);
 		setFocusable(true);
 
-		if (!setup.isDefaultTransparency()) {
-			setBackgroundStateDrawable(setup.getTransparency());
-		} else {
-			setBackgroundResource(R.drawable.application_selector);
-		}
+		setBackgroundStateDrawable(setup.isDefaultTransparency(), setup.getTransparency());
+		//setBackgroundResource(R.drawable.application_selector);
 
 		mIcon = (ImageView) findViewById(R.id.application_icon);
 		mText = (TextView) findViewById(R.id.application_name);

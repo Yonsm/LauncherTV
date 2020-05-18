@@ -37,8 +37,8 @@
 	<string name="summary_margin_x">Width of space between icons: %s dp</string>
 	<string name="summary_margin_y">Height of space between icons: %s dp</string>
 	<string name="title_transparency">Background transparency</string>
-	<string name="title_default_transparency">Default transparency</string>
-	<string name="summary_default_transparency">Use legacy tiles transparency</string>
+	<string name="title_default_transparency">Default grid background</string>
+	<string name="summary_default_transparency">Use built-in tiles background</string>
 	<string name="about">About</string>
 	<string name="error_opening_link">Error (%1$s) : %2$s</string>
 	<string name="home_locked">Icon is locked by settings</string>
