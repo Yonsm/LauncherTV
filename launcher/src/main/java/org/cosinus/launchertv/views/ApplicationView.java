@@ -46,6 +46,8 @@ public class ApplicationView extends LinearLayout {
 	private TextView mText;
 	private String mPackageName;
 	private int mPosition;
+	private static int mBackgroundIndex = 0;
+	private static int mBackgroundColors[] = {0xFF03a9f4, 0xFF8bc34a, 0xFF2196f3, 0xFF009688, 0xFF00bcd4, 0xFF3f51b5};
 
 	public ApplicationView(Context context) {
 		super(context);
@@ -97,15 +99,15 @@ public class ApplicationView extends LinearLayout {
 		StateListDrawable stateListDrawable = new StateListDrawable();
 
 		Drawable drawableEnabled = createTileShape(
-				Color.argb(getTransparency(transparency, 0.0F), 0xF0, 0xF0, 0xF0),
+				mBackgroundColors[mBackgroundIndex++ % mBackgroundColors.length], //Color.argb(getTransparency(transparency, 0.0F), 0xF0, 0xF0, 0xF0),
 				Color.argb(0xFF, 0x90, 0x90, 0x90)
 		);
 		Drawable drawableFocused = createTileShape(
-				Color.argb(getTransparency(transparency, 0.4F), 0xE0, 0xE0, 0xFF),
+				0xFFff5722, //Color.argb(getTransparency(transparency, 0.4F), 0xE0, 0xE0, 0xFF),
 				Color.argb(0xFF, 0x90, 0x90, 0x90)
 		);
 		Drawable drawablePressed = createTileShape(
-				Color.argb(getTransparency(transparency, 0.8F), 0xE0, 0xE0, 0xFF),
+				0xFFff9800, //Color.argb(getTransparency(transparency, 0.8F), 0xE0, 0xE0, 0xFF),
 				Color.argb(0xFF, 0x00, 0x00, 0x00)
 		);
 

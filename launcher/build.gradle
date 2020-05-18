@@ -41,7 +41,7 @@ task checkstyle(type: Checkstyle) {
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.3'
 
     lintOptions {
         abortOnError true
