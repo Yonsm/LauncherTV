@@ -229,7 +229,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 				if (TextUtils.isEmpty(pref) == false) {
 					String items[] = pref.split("/", 2);
 					packageName = items[0];
-					activityName = items.length > 2 ? items[1] : null;
+					activityName = items.length > 1 ? items[1] : null;
 				}
 
 				setApplication(pm, app, packageName, activityName);

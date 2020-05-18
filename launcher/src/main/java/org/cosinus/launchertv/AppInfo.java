@@ -17,11 +17,14 @@
 
 package org.cosinus.launchertv;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 
 public class AppInfo {
@@ -34,6 +37,7 @@ public class AppInfo {
 		mPackageName = resolveInfo.activityInfo.packageName;
 		mActivityName = resolveInfo.activityInfo.name;
 		mIcon = resolveInfo.loadIcon(packageManager);
+
 		try {
 			mName = resolveInfo.loadLabel(packageManager).toString();
 		} catch (Exception e) {
@@ -44,9 +48,24 @@ public class AppInfo {
 	public AppInfo(PackageManager packageManager, ApplicationInfo applicationInfo, String activityName) {
 		mPackageName = applicationInfo.packageName;
 		mActivityName = activityName;
-		mIcon = applicationInfo.loadIcon(packageManager);
+
+		ResolveInfo resolveInfo;
+		if (TextUtils.isEmpty(activityName)) {
+			resolveInfo = null;
+			mIcon = applicationInfo.loadIcon(packageManager);
+		} else {
+			Intent intent = new Intent();
+			intent.setComponent(new ComponentName(mPackageName, mActivityName));
+			resolveInfo = packageManager.resolveActivity(intent, 0);
+			mIcon = resolveInfo.loadIcon(packageManager);
+		}
+
 		try {
-			mName = applicationInfo.loadLabel(packageManager).toString();
+			if (resolveInfo == null) {
+				mName = applicationInfo.loadLabel(packageManager).toString();
+			} else {
+				mName = resolveInfo.loadLabel(packageManager).toString();
+			}
 		} catch (Exception e) {
 			mName = mPackageName;
 		}
