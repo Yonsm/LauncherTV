@@ -30,7 +30,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Utils {
-	public static List<AppInfo> loadApplications(Context context) {
+	public static List<AppInfo> loadApplications(Context context, List<String> excludeApplications) {
 		PackageManager packageManager = context.getPackageManager();
 		Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
 		mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -39,8 +39,13 @@ public class Utils {
 
 		if (intentActivities != null) {
 			for (ResolveInfo resolveInfo : intentActivities) {
-				if (!context.getPackageName().equals(resolveInfo.activityInfo.packageName))
-					entries.add(new AppInfo(packageManager, resolveInfo));
+				if (!context.getPackageName().equals(resolveInfo.activityInfo.packageName)) {
+					String packageName = resolveInfo.activityInfo.packageName;
+					String activityName = resolveInfo.activityInfo.name;
+					if (excludeApplications == null || !excludeApplications.contains(packageName + "/" + activityName)) {
+						entries.add(new AppInfo(packageManager, resolveInfo, packageName, activityName));
+					}
+				}
 			}
 		}
 
@@ -58,3 +63,10 @@ public class Utils {
 		return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
 	}
 }
+
+/*
+全部应用：com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity
+视频：com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity
+音乐：genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=music&menuBusinessName=音乐&modeType=0&pkg=com.alibaba.ailabs.genie.launcher
+com.github.neithern.tuku/.TvActivity
+ */

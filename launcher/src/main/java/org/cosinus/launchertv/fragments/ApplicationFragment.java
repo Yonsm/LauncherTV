@@ -46,6 +46,7 @@ import org.cosinus.launchertv.activities.Preferences;
 import org.cosinus.launchertv.views.ApplicationView;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @SuppressWarnings("PointlessBooleanExpression")
@@ -225,11 +226,14 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 				ApplicationView app = mApplications[y][x];
 
 				String pref = prefs.getString(app.getPreferenceKey(), null);
-				String packageName = null, activityName = null;
+				String packageName, activityName;
 				if (TextUtils.isEmpty(pref) == false) {
 					String items[] = pref.split("/", 2);
 					packageName = items[0];
 					activityName = items.length > 1 ? items[1] : null;
+				} else {
+					packageName = null;
+					activityName = null;
 				}
 
 				setApplication(pm, app, packageName, activityName);
@@ -367,7 +371,25 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 		intent.putExtra(ApplicationList.VIEW_TYPE, viewType);
 		intent.putExtra(ApplicationList.SHOW_DELETE, showDelete);
 		intent.putExtra(ApplicationList.PACKAGE_NAME, packageName);
+		intent.putStringArrayListExtra(ApplicationList.EXCLUDE_APPLICATIONS, addedApplications());
 		startActivityForResult(intent, requestCode);
+	}
+
+	private ArrayList<String> addedApplications() {
+		SharedPreferences prefs = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+
+		ArrayList<String> apps = new ArrayList<>();
+		int position = 0;
+		for (int y = 0; y < mGridY; y++) {
+			for (int x = 0; x < mGridX; x++) {
+				ApplicationView app = mApplications[y][x];
+				String pref = prefs.getString(app.getPreferenceKey(), null);
+				if (TextUtils.isEmpty(pref) == false) {
+					apps.add(pref);
+				}
+			}
+		}
+		return apps;
 	}
 
 	@Override

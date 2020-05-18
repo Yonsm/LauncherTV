@@ -31,10 +31,13 @@ import org.cosinus.launchertv.R;
 import org.cosinus.launchertv.Utils;
 import org.cosinus.launchertv.views.ApplicationAdapter;
 
+import java.util.ArrayList;
+
 
 public class ApplicationList extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
 	public static final String PACKAGE_NAME = "package_name";
 	public static final String ACTIVITY_NAME = "activity_name";
+	public static final String EXCLUDE_APPLICATIONS = "exclude_applications";
 	public static final String APPLICATION_NUMBER = "application";
 	public static final String VIEW_TYPE = "view_type";
 	public static final String DELETE = "delete";
@@ -47,10 +50,11 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 	private int mApplication = -1;
 	private int mViewType = 0;
 	private AbsListView mListView;
+	private ArrayList<String> mExcludeApplications;
 	private final AsyncTask<Void, Void, AppInfo[]> mApplicationLoader = new AsyncTask<Void, Void, AppInfo[]>() {
 		@Override
 		protected AppInfo[] doInBackground(Void... params) {
-			return Utils.loadApplications(ApplicationList.this).toArray(new AppInfo[0]);
+			return Utils.loadApplications(ApplicationList.this, mExcludeApplications).toArray(new AppInfo[0]);
 		}
 
 		@Override
@@ -77,6 +81,8 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 				mApplication = args.getInt(APPLICATION_NUMBER);
 			if (args.containsKey(VIEW_TYPE))
 				mViewType = args.getInt(VIEW_TYPE);
+			if (args.containsKey(EXCLUDE_APPLICATIONS))
+				mExcludeApplications = args.getStringArrayList(EXCLUDE_APPLICATIONS);
 		}
 
 		setContentView(mViewType == VIEW_LIST ?

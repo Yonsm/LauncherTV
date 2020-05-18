@@ -33,9 +33,9 @@ public class AppInfo {
 	private final String mPackageName;
 	private final String mActivityName;
 
-	AppInfo(PackageManager packageManager, ResolveInfo resolveInfo) {
-		mPackageName = resolveInfo.activityInfo.packageName;
-		mActivityName = resolveInfo.activityInfo.name;
+	AppInfo(PackageManager packageManager, ResolveInfo resolveInfo, String packageName, String activityName) {
+		mPackageName = packageName;
+		mActivityName = activityName;
 		mIcon = resolveInfo.loadIcon(packageManager);
 
 		try {
