@@ -18,6 +18,7 @@
 package org.cosinus.launchertv.fragments;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -222,7 +223,16 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 		for (int y = 0; y < mGridY; y++) {
 			for (int x = 0; x < mGridX; x++) {
 				ApplicationView app = mApplications[y][x];
-				setApplication(pm, app, prefs.getString(app.getPreferenceKey(), null));
+
+				String pref = prefs.getString(app.getPreferenceKey(), null);
+				String packageName = null, activityName = null;
+				if (TextUtils.isEmpty(pref) == false) {
+					String items[] = pref.split("/", 2);
+					packageName = items[0];
+					activityName = items.length > 2 ? items[1] : null;
+				}
+
+				setApplication(pm, app, packageName, activityName);
 			}
 		}
 	}
@@ -235,7 +245,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 	}
 
 
-	private void writePreferences(int appNum, String packageName) {
+	private void writePreferences(int appNum, String packageName, String activityName) {
 		SharedPreferences prefs = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 		String key = ApplicationView.getPreferenceKey(appNum);
@@ -243,26 +253,28 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 		if (TextUtils.isEmpty(packageName))
 			editor.remove(key);
 		else
-			editor.putString(key, packageName);
+			editor.putString(key, packageName + '/' + activityName);
 
 		editor.apply();
 	}
 
-	private void setApplication(PackageManager pm, ApplicationView app, String packageName) {
+	private void setApplication(PackageManager pm, ApplicationView app, String packageName, String activityName) {
 		try {
 
 			if (TextUtils.isEmpty(packageName) == false) {
 				PackageInfo pi = pm.getPackageInfo(packageName, 0);
 				if (pi != null) {
-					AppInfo appInfo = new AppInfo(pm, pi.applicationInfo);
+					AppInfo appInfo = new AppInfo(pm, pi.applicationInfo, activityName);
 					app.setImageDrawable(appInfo.getIcon())
 							.setText(appInfo.getName())
-							.setPackageName(appInfo.getPackageName());
+							.setPackageName(appInfo.getPackageName())
+							.setActivityName(appInfo.getmActivityName());
 				}
 			} else {
 				app.setImageResource(R.drawable.ic_add)
 						.setText("")
-						.setPackageName(null);
+						.setPackageName(null)
+						.setActivityName(null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -329,19 +341,21 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 			return;
 		}
 
-		try {
-			Toast.makeText(getActivity(), v.getName(), Toast.LENGTH_SHORT).show();
-			startActivity(getActivity().getPackageManager().getLaunchIntentForPackage(v.getPackageName()));
-		} catch (Exception e) {
-			Toast.makeText(getActivity(), v.getName() + " : " + e.getMessage(), Toast.LENGTH_LONG).show();
-		}
+		openApplication(v.getPackageName(), v.getActivityName());
 	}
 
-	private void openApplication(String packageName) {
+	private void openApplication(String packageName, String activityName) {
 		try {
-			Intent startApp = getActivity().getPackageManager().getLaunchIntentForPackage(packageName);
-			Toast.makeText(getActivity(), packageName, Toast.LENGTH_SHORT).show();
-			startActivity(startApp);
+			//Toast.makeText(getActivity(), packageName, Toast.LENGTH_SHORT).show();
+			Intent intent;
+			if (TextUtils.isEmpty(activityName)) {
+				intent = getActivity().getPackageManager().getLaunchIntentForPackage(packageName);
+			} else {
+				intent = new Intent();
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.setComponent(new ComponentName(packageName, activityName));
+			}
+			startActivity(intent);
 		} catch (Exception e) {
 			Toast.makeText(getActivity(), packageName + " : " + e.getMessage(), Toast.LENGTH_LONG).show();
 		}
@@ -367,18 +381,19 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 				break;
 			case REQUEST_CODE_APPLICATION_START:
 				if (intent != null)
-					openApplication(intent.getExtras().getString(ApplicationList.PACKAGE_NAME));
+					openApplication(intent.getExtras().getString(ApplicationList.PACKAGE_NAME), intent.getExtras().getString(ApplicationList.ACTIVITY_NAME));
 				break;
 			case REQUEST_CODE_APPLICATION_LIST:
 				if (resultCode == Activity.RESULT_OK) {
 					Bundle extra = intent.getExtras();
-					int appNum = intent.getExtras().getInt(ApplicationList.APPLICATION_NUMBER);
+					int appNum = extra.getInt(ApplicationList.APPLICATION_NUMBER);
 
 					if (extra.containsKey(ApplicationList.DELETE) && extra.getBoolean(ApplicationList.DELETE)) {
-						writePreferences(appNum, null);
+						writePreferences(appNum, null, null);
 					} else {
 						writePreferences(appNum,
-								intent.getExtras().getString(ApplicationList.PACKAGE_NAME)
+								extra.getString(ApplicationList.PACKAGE_NAME),
+								extra.getString(ApplicationList.ACTIVITY_NAME)
 						);
 					}
 					updateApplications();

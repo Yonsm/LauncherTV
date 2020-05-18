@@ -45,6 +45,7 @@ public class ApplicationView extends LinearLayout {
 	private ImageView mIcon;
 	private TextView mText;
 	private String mPackageName;
+	private String mActivityName;
 	private int mPosition;
 	private static int mBackgroundIndex = 0;
 	private static int mBackgroundColors[] = {0xFF03a9f4, 0xFF8bc34a, 0xFF2196f3, 0xFF009688, 0xFF00bcd4, 0xFF3f51b5};
@@ -181,6 +182,16 @@ public class ApplicationView extends LinearLayout {
 	@SuppressWarnings("UnusedReturnValue")
 	public ApplicationView setPackageName(String packageName) {
 		mPackageName = packageName;
+		return (this);
+	}
+
+	public String getActivityName() {
+		return mActivityName;
+	}
+
+	@SuppressWarnings("UnusedReturnValue")
+	public ApplicationView setActivityName(String activityName) {
+		mActivityName = activityName;
 		return (this);
 	}
 

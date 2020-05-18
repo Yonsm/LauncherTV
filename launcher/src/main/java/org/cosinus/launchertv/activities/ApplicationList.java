@@ -34,6 +34,7 @@ import org.cosinus.launchertv.views.ApplicationAdapter;
 
 public class ApplicationList extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
 	public static final String PACKAGE_NAME = "package_name";
+	public static final String ACTIVITY_NAME = "activity_name";
 	public static final String APPLICATION_NUMBER = "application";
 	public static final String VIEW_TYPE = "view_type";
 	public static final String DELETE = "delete";
@@ -110,6 +111,7 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 		Intent data = new Intent();
 
 		data.putExtra(PACKAGE_NAME, appInfo.getPackageName());
+		data.putExtra(ACTIVITY_NAME, appInfo.getmActivityName());
 		data.putExtra(APPLICATION_NUMBER, mApplication);
 
 		if (getParent() == null) {
@@ -127,6 +129,7 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 				Uri uri = Uri.fromParts("package", mPackageName, null);
 				Intent intent = new Intent(Intent.ACTION_DELETE, uri);
 				startActivity(intent);
+				finish();
 				break;
 
 			case R.id.delete:

@@ -28,9 +28,11 @@ public class AppInfo {
 	private final Drawable mIcon;
 	private String mName;
 	private final String mPackageName;
+	private final String mActivityName;
 
 	AppInfo(PackageManager packageManager, ResolveInfo resolveInfo) {
 		mPackageName = resolveInfo.activityInfo.packageName;
+		mActivityName = resolveInfo.activityInfo.name;
 		mIcon = resolveInfo.loadIcon(packageManager);
 		try {
 			mName = resolveInfo.loadLabel(packageManager).toString();
@@ -39,8 +41,9 @@ public class AppInfo {
 		}
 	}
 
-	public AppInfo(PackageManager packageManager, ApplicationInfo applicationInfo) {
+	public AppInfo(PackageManager packageManager, ApplicationInfo applicationInfo, String activityName) {
 		mPackageName = applicationInfo.packageName;
+		mActivityName = activityName;
 		mIcon = applicationInfo.loadIcon(packageManager);
 		try {
 			mName = applicationInfo.loadLabel(packageManager).toString();
@@ -63,5 +66,9 @@ public class AppInfo {
 
 	public String getPackageName() {
 		return mPackageName;
+	}
+
+	public String getmActivityName() {
+		return mActivityName;
 	}
 }
