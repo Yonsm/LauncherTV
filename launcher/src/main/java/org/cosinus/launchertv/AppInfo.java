@@ -75,10 +75,12 @@ public class AppInfo {
 	@NonNull
 	public String getName() {
 		if (mActivityName != null) {
-			if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity"))
+			if (mActivityName.equals("genie://com.alibaba.ailabs.genie.launcher/appstore"))
 				return "全部应用";
-			if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity"))
+			if (mActivityName.equals("genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=video"))
 				return "视频";
+			if (mActivityName.equals("genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=audio"))
+				return "音乐";
 		}
 		if (mName != null) {
 			if (mName.equals("GenieLauncher"))

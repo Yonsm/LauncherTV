@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -356,8 +357,13 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 				intent = getActivity().getPackageManager().getLaunchIntentForPackage(packageName);
 			} else {
 				intent = new Intent();
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.setComponent(new ComponentName(packageName, activityName));
+				if (activityName.contains("://")) {
+					intent.setAction(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(activityName));
+				} else {
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.setComponent(new ComponentName(packageName, activityName));
+				}
 			}
 			startActivity(intent);
 		} catch (Exception e) {

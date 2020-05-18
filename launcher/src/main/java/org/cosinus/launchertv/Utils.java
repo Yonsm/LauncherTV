@@ -46,10 +46,12 @@ public class Utils {
 						entries.add(new AppInfo(packageManager, resolveInfo, packageName, activityName));
 					}
 					if (packageName.equals("com.alibaba.ailabs.genie.launcher")) {
-						if (excludeApplications == null || !excludeApplications.contains(packageName + "/" + "com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity"))
-							entries.add(new AppInfo(packageManager, resolveInfo, packageName, "com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity"));
-						if (excludeApplications == null || !excludeApplications.contains(packageName + "/" + "com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity"))
-							entries.add(new AppInfo(packageManager, resolveInfo, packageName, "com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity"));
+						String urls[] = {"channel?menuBusinessType=video", "channel?menuBusinessType=audio", "appstore"};
+						for (int i = 0; i < urls.length; i++) {
+							String url = "genie://com.alibaba.ailabs.genie.launcher/" + urls[i];
+							if (excludeApplications == null || !excludeApplications.contains(packageName + "/" + url))
+								entries.add(new AppInfo(packageManager, resolveInfo, packageName, url));
+						}
 					}
 				}
 			}
