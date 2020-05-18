@@ -79,6 +79,11 @@ android {
                 //noinspection GroovyAssignabilityCheck
                 signingConfig signingConfigs.release
             }
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "SimpleLauncher.apk"
+                }
+            }
         }
         debug {
             applicationIdSuffix ".debug"
