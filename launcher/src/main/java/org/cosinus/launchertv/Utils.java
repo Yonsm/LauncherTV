@@ -46,11 +46,9 @@ public class Utils {
 						entries.add(new AppInfo(packageManager, resolveInfo, packageName, activityName));
 					}
 					if (packageName.equals("com.alibaba.ailabs.genie.launcher")) {
-						String urls[] = {"channel?menuBusinessType=video", "channel?menuBusinessType=audio", "appstore"};
-						for (int i = 0; i < urls.length; i++) {
-							String url = "genie://com.alibaba.ailabs.genie.launcher/" + urls[i];
-							if (excludeApplications == null || !excludeApplications.contains(packageName + "/" + url))
-								entries.add(new AppInfo(packageManager, resolveInfo, packageName, url));
+						for (int i = 0; i < ALIGENIE_APPS.length; i++) {
+							if (excludeApplications == null || !excludeApplications.contains(packageName + "/" + ALIGENIE_APPS[i][0]))
+								entries.add(new AppInfo(packageManager, resolveInfo, packageName, ALIGENIE_APPS[i][0]));
 						}
 					}
 				}
@@ -70,4 +68,17 @@ public class Utils {
 		Resources r = context.getResources();
 		return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
 	}
+
+	public static String[][] ALIGENIE_APPS = {
+			{"genie://com.alibaba.ailabs.genie.launcher/appstore", "全部应用"},
+			{"genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=video&menuBusinessName=%E8%A7%86%E9%A2%91&modeType=0&pkg=com.alibaba.ailabs.genie.launcher","视频"},
+			{"genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=music&menuBusinessName=%E9%9F%B3%E4%B9%90&modeType=0&pkg=com.alibaba.ailabs.genie.launcher","音乐"},
+			{"genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=audio&menuBusinessName=%E9%9F%B3%E9%A2%91&modeType=0&pkg=com.alibaba.ailabs.genie.launcher","音频"},
+			{"genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=shopping&menuBusinessName=%E8%B4%AD%E7%89%A9&modeType=0&pkg=com.alibaba.ailabs.genie.launcher","购物"},
+			//{"genie://com.alibaba.ailabs.genie.contacts/page/home?modeType=0&pkg=com.alibaba.ailabs.genie.contacts&missedCalls=0", "通话"},
+			{"genie://com.alibaba.ailabs.genie.iot/house?pkg=com.alibaba.ailabs.genie.iot","智能家居"},
+			{"genie://com.alibaba.ailabs.ar.fireeye2/fireeye?&pkg=com.alibaba.ailabs.ar.fireeye2","爱绘本"},
+			{"genie://com.alibaba.ailabs.genie.albums/albums?&pkg=com.alibaba.ailabs.genie.albums","相册"},
+			{"genie://com.alibaba.ailabs.genie.cook/cook?pkg=com.alibaba.ailabs.genie.cook","菜谱"},
+	};
 }
