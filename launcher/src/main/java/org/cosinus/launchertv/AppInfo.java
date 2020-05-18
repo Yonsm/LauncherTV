@@ -74,16 +74,19 @@ public class AppInfo {
 
 	@NonNull
 	public String getName() {
-		if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity"))
-			return "全部应用";
-		if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity"))
-			return "视频";
-		if (mName.equals("GenieLauncher"))
-			return "天猫精灵";
-		if (mName.equals("GenieContacts"))
-			return "通话";
-		if (mName != null)
+		if (mActivityName != null) {
+			if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity"))
+				return "全部应用";
+			if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity"))
+				return "视频";
+		}
+		if (mName != null) {
+			if (mName.equals("GenieLauncher"))
+				return "天猫精灵";
+			if (mName.equals("GenieContacts"))
+				return "通话";
 			return mName;
+		}
 		return ("");
 	}
 
