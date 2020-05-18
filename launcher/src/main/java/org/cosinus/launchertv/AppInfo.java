@@ -52,13 +52,13 @@ public class AppInfo {
 		ResolveInfo resolveInfo;
 		if (TextUtils.isEmpty(activityName)) {
 			resolveInfo = null;
-			mIcon = applicationInfo.loadIcon(packageManager);
-		} else {
+		}
+		else {
 			Intent intent = new Intent();
 			intent.setComponent(new ComponentName(mPackageName, mActivityName));
 			resolveInfo = packageManager.resolveActivity(intent, 0);
-			mIcon = resolveInfo.loadIcon(packageManager);
 		}
+		mIcon = resolveInfo != null ? resolveInfo.loadIcon(packageManager) : applicationInfo.loadIcon(packageManager);
 
 		try {
 			if (resolveInfo == null) {
@@ -74,6 +74,14 @@ public class AppInfo {
 
 	@NonNull
 	public String getName() {
+		if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity"))
+			return "全部应用";
+		if (mActivityName.equals("com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity"))
+			return "视频";
+		if (mName.equals("GenieLauncher"))
+			return "天猫精灵";
+		if (mName.equals("GenieContacts"))
+			return "通话";
 		if (mName != null)
 			return mName;
 		return ("");

@@ -44,6 +44,10 @@ public class Utils {
 					String activityName = resolveInfo.activityInfo.name;
 					if (excludeApplications == null || !excludeApplications.contains(packageName + "/" + activityName)) {
 						entries.add(new AppInfo(packageManager, resolveInfo, packageName, activityName));
+						if (packageName.equals("com.alibaba.ailabs.genie.launcher")) {
+							entries.add(new AppInfo(packageManager, resolveInfo, packageName, "com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity"));
+							entries.add(new AppInfo(packageManager, resolveInfo, packageName, "com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity"));
+						}
 					}
 				}
 			}
@@ -63,10 +67,3 @@ public class Utils {
 		return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
 	}
 }
-
-/*
-全部应用：com.alibaba.ailabs.genie.launcher/.appstore.AppStoreActivity
-视频：com.alibaba.ailabs.genie.launcher/.channel.NormalChannelActivity
-音乐：genie://com.alibaba.ailabs.genie.launcher/channel?menuBusinessType=music&menuBusinessName=音乐&modeType=0&pkg=com.alibaba.ailabs.genie.launcher
-com.github.neithern.tuku/.TvActivity
- */
