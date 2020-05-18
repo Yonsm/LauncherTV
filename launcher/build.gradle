@@ -40,7 +40,7 @@ task checkstyle(type: Checkstyle) {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 29
     buildToolsVersion '26.0.2'
 
     lintOptions {
@@ -50,8 +50,8 @@ android {
 
     defaultConfig {
         applicationId "org.cosinus.launchertv"
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode 155
         versionName "1.5.5"
     }
