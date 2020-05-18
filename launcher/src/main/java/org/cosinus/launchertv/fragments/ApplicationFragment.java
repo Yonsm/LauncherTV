@@ -296,7 +296,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 			if (appView.hasPackage() && mSetup.iconsLocked()) {
 				Toast.makeText(getActivity(), R.string.home_locked, Toast.LENGTH_SHORT).show();
 			} else {
-				openApplicationList(ApplicationList.VIEW_LIST, appView.getPosition(), appView.hasPackage(), REQUEST_CODE_APPLICATION_LIST);
+				openApplicationList(ApplicationList.VIEW_LIST, appView.getPosition(), appView.hasPackage(), REQUEST_CODE_APPLICATION_LIST, appView.getPackageName());
 			}
 			return (true);
 		}
@@ -312,7 +312,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 
 		switch (v.getId()) {
 			case R.id.application_grid: {
-				openApplicationList(ApplicationList.VIEW_GRID, 0, false, REQUEST_CODE_APPLICATION_START);
+				openApplicationList(ApplicationList.VIEW_GRID, 0, false, REQUEST_CODE_APPLICATION_START, null);
 			}
 			break;
 
@@ -325,7 +325,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 
 	private void openApplication(ApplicationView v) {
 		if (v.hasPackage() == false) {
-			openApplicationList(ApplicationList.VIEW_LIST, v.getPosition(), false, REQUEST_CODE_APPLICATION_LIST);
+			openApplicationList(ApplicationList.VIEW_LIST, v.getPosition(), false, REQUEST_CODE_APPLICATION_LIST, null);
 			return;
 		}
 
@@ -347,11 +347,12 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 		}
 	}
 
-	private void openApplicationList(int viewType, int appNum, boolean showDelete, int requestCode) {
+	private void openApplicationList(int viewType, int appNum, boolean showDelete, int requestCode, String packageName) {
 		Intent intent = new Intent(getActivity(), ApplicationList.class);
 		intent.putExtra(ApplicationList.APPLICATION_NUMBER, appNum);
 		intent.putExtra(ApplicationList.VIEW_TYPE, viewType);
 		intent.putExtra(ApplicationList.SHOW_DELETE, showDelete);
+		intent.putExtra(ApplicationList.PACKAGE_NAME, packageName);
 		startActivityForResult(intent, requestCode);
 	}
 

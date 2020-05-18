@@ -19,6 +19,7 @@ package org.cosinus.launchertv.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +42,7 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 	public static final int VIEW_GRID = 0;
 	public static final int VIEW_LIST = 1;
 	//
+	private String mPackageName = null;
 	private int mApplication = -1;
 	private int mViewType = 0;
 	private AbsListView mListView;
@@ -68,6 +70,8 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 		Bundle args = intent.getExtras();
 
 		if (args != null) {
+			if (args.containsKey(PACKAGE_NAME))
+				mPackageName = args.getString(PACKAGE_NAME);
 			if (args.containsKey(APPLICATION_NUMBER))
 				mApplication = args.getInt(APPLICATION_NUMBER);
 			if (args.containsKey(VIEW_TYPE))
@@ -117,7 +121,7 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.delete:
+			case R.id.cancel:
 				Intent data = new Intent();
 
 				data.putExtra(DELETE, true);
@@ -130,12 +134,17 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 				finish();
 				break;
 
-			case R.id.cancel:
-				if (getParent() == null)
-					setResult(Activity.RESULT_CANCELED);
-				else
-					getParent().setResult(Activity.RESULT_CANCELED);
-				finish();
+			case R.id.delete:
+				Uri uri = Uri.fromParts("package", mPackageName, null);
+				Intent intent = new Intent(Intent.ACTION_DELETE, uri);
+				startActivity(intent);
+
+//				if (getParent() == null)
+//					setResult(Activity.RESULT_CANCELED);
+//				else
+//					getParent().setResult(Activity.RESULT_CANCELED);
+//				finish();
+
 				break;
 		}
 	}
