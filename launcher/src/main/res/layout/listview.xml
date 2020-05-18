@@ -35,25 +35,40 @@
 		android:verticalSpacing="10dp"/>
 
 	<LinearLayout
+		style="?android:attr/buttonBarStyle"
 		android:id="@+id/bottom_panel"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 
-		<ImageButton
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
+			android:id="@+id/uninstall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/uninstall"
+			android:drawableTop="@drawable/ic_uninstall"
+			tools:ignore="ContentDescription"/>
+
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
 			android:id="@+id/delete"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:src="@drawable/ic_delete"
+			android:text="@string/delete"
+			android:drawableTop="@drawable/ic_delete"
 			tools:ignore="ContentDescription"/>
 
-		<ImageButton
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
 			android:id="@+id/cancel"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:src="@drawable/ic_close"
+			android:text="@string/cancel"
+			android:drawableTop="@drawable/ic_cancel"
 			tools:ignore="ContentDescription"/>
 
 	</LinearLayout>

@@ -92,6 +92,8 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 					v.setVisibility(View.GONE);
 			}
 		}
+		if ((v = findViewById(R.id.uninstall)) != null)
+			v.setOnClickListener(this);
 		if ((v = findViewById(R.id.delete)) != null)
 			v.setOnClickListener(this);
 		if ((v = findViewById(R.id.cancel)) != null)
@@ -121,7 +123,13 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.cancel:
+			case R.id.uninstall:
+				Uri uri = Uri.fromParts("package", mPackageName, null);
+				Intent intent = new Intent(Intent.ACTION_DELETE, uri);
+				startActivity(intent);
+				break;
+
+			case R.id.delete:
 				Intent data = new Intent();
 
 				data.putExtra(DELETE, true);
@@ -134,17 +142,12 @@ public class ApplicationList extends Activity implements AdapterView.OnItemClick
 				finish();
 				break;
 
-			case R.id.delete:
-				Uri uri = Uri.fromParts("package", mPackageName, null);
-				Intent intent = new Intent(Intent.ACTION_DELETE, uri);
-				startActivity(intent);
-
-//				if (getParent() == null)
-//					setResult(Activity.RESULT_CANCELED);
-//				else
-//					getParent().setResult(Activity.RESULT_CANCELED);
-//				finish();
-
+			case R.id.cancel:
+				if (getParent() == null)
+					setResult(Activity.RESULT_CANCELED);
+				else
+					getParent().setResult(Activity.RESULT_CANCELED);
+				finish();
 				break;
 		}
 	}

@@ -44,4 +44,7 @@
 	<string name="home_locked">Icon is locked by settings</string>
 	<string name="summary_locked">Prevent icons to be accidentally removed</string>
 	<string name="title_locked">Lock icons</string>
+	<string name="uninstall">Uninstall</string>
+	<string name="delete">Delete</string>
+	<string name="cancel">Cancel</string>
 </resources>
