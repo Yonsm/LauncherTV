@@ -69,10 +69,10 @@ public class ApplicationView extends LinearLayout {
 	private static Drawable createTileShape(int backgroundColor, int borderColor) {
 		GradientDrawable shape = new GradientDrawable();
 		shape.setShape(GradientDrawable.RECTANGLE);
-		shape.setCornerRadii(new float[]{7, 7, 7, 7, 0, 0, 0, 0});
+		//shape.setCornerRadii(new float[]{7, 7, 7, 7, 0, 0, 0, 0});
 		shape.setColor(backgroundColor);
-		shape.setStroke(1, borderColor);
-		shape.setBounds(7, 7, 7, 7);
+		//shape.setStroke(1, borderColor);
+		//shape.setBounds(7, 7, 7, 7);
 		return (shape);
 	}
 
