@@ -20,12 +20,15 @@ package org.cosinus.launchertv;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 
 import org.cosinus.launchertv.fragments.ApplicationFragment;
 
 public class Launcher extends FragmentActivity {
+
+	private ApplicationFragment mFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +37,9 @@ public class Launcher extends FragmentActivity {
 		setFullScreen();
 		setContentView(R.layout.activity_launcher);
 
+		mFragment = ApplicationFragment.newInstance();
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container, ApplicationFragment.newInstance(), ApplicationFragment.TAG)
+				.replace(R.id.container, mFragment, ApplicationFragment.TAG)
 				.commit();
 	}
 
@@ -72,5 +76,14 @@ public class Launcher extends FragmentActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			mFragment.openApplicationGrid();
+			return true;
+		}
+		return false;
 	}
 }

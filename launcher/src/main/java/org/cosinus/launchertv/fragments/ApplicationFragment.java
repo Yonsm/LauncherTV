@@ -329,7 +329,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 
 		switch (v.getId()) {
 			case R.id.application_grid: {
-				openApplicationList(ApplicationList.VIEW_GRID, 0, false, REQUEST_CODE_APPLICATION_START, null);
+				openApplicationGrid();
 			}
 			break;
 
@@ -338,6 +338,10 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 				break;
 		}
 
+	}
+
+	public void openApplicationGrid() {
+		openApplicationList(ApplicationList.VIEW_GRID, 0, false, REQUEST_CODE_APPLICATION_START, null);
 	}
 
 	private void openApplication(ApplicationView v) {
@@ -429,6 +433,4 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 				break;
 		}
 	}
-
-
 }
