@@ -148,7 +148,7 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 			for (int x = 0; x < mGridX; x++) {
 				//int mBackgroundColors[] = {0xFF03a9f4, 0xFF8bc34a, 0xFF2196f3, 0xFF009688, 0xFF00bcd4, 0xFF3f51b5};
 				boolean altColor = ((x + y % 2)  % 2) == 0;
-				ApplicationView av = new ApplicationView(getContext(), altColor ? 0xFF8bc34a : 0xFF00bcd4);
+				ApplicationView av = new ApplicationView(getContext(), altColor ? 0xFF03a9f4 : 0xFF2196f3);
 				av.setOnClickListener(this);
 				av.setOnLongClickListener(this);
 				av.setOnMenuOnClickListener(new View.OnClickListener() {
