@@ -23,7 +23,7 @@
 			android:summary="@string/summary_screen_always_on"
 			android:title="@string/title_screen_always_on"/>
 		<CheckBoxPreference
-			android:defaultValue="false"
+			android:defaultValue="true"
 			android:key="preference_show_date"
 			android:summary="@string/summary_show_date"
 			android:title="@string/title_show_date"/>

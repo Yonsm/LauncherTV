@@ -44,17 +44,32 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:orientation="vertical"
+			android:orientation="horizontal"
+			android:gravity="end"
 			android:paddingStart="5dp"
 			android:paddingEnd="5dp"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp">
 
 			<TextView
+				android:id="@+id/date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingLeft="5dp"
+				android:paddingRight="5dp"
+				android:maxLines="1"
+				android:shadowColor="#ff000000"
+				android:shadowDx="1"
+				android:shadowDy="1"
+				android:shadowRadius="0.5"
+				android:text="@string/test_date"
+				android:textColor="#ffffffff"
+				android:textSize="25sp"/>
+
+			<TextView
 				android:id="@+id/clock"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="end"
 				android:maxLines="1"
 				android:shadowColor="#ff000000"
 				android:shadowDx="1"
@@ -64,20 +79,6 @@
 				android:textColor="#ffffffff"
 				android:textSize="25sp"/>
 
-			<TextView
-				android:id="@+id/date"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="end"
-				android:maxLines="1"
-				android:shadowColor="#ff000000"
-				android:shadowDx="1"
-				android:shadowDy="1"
-				android:shadowRadius="0.5"
-				android:text="@string/test_date"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:textColor="#ffffffff"
-				android:textSize="15sp"/>
 		</LinearLayout>
 	</LinearLayout>
 
