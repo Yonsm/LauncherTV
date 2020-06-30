@@ -32,11 +32,10 @@
 		android:gravity="center_vertical">
 
 		<ImageButton
-			android:id="@+id/application_grid"
+			android:id="@+id/settings"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="top"
-			android:src="@drawable/ic_apps"
+			android:src="@drawable/ic_tune"
 			tools:ignore="ContentDescription"/>
 
 
@@ -100,10 +99,11 @@
 		android:gravity="center_vertical|end">
 
 		<ImageButton
-			android:id="@+id/settings"
+			android:id="@+id/application_grid"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/ic_tune"
+			android:layout_gravity="top"
+			android:src="@drawable/ic_apps"
 			tools:ignore="ContentDescription"/>
 	</LinearLayout>
 </LinearLayout>
