@@ -70,11 +70,11 @@ public class Setup {
 
 	public float getTransparency() {
 		try {
-			return (getPreferences().getFloat(PREFERENCE_TRANSPARENCY, 0.5F));
+			return (getPreferences().getFloat(PREFERENCE_TRANSPARENCY, 0.1F));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return (0.5F);
+		return (0.1F);
 	}
 
 	public boolean keepScreenOn() {
