@@ -61,11 +61,11 @@ public class Setup {
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public boolean isDefaultTransparency() {
 		try {
-			return (getPreferences().getBoolean(PREFERENCE_DEFAULT_TRANSPARENCY, true));
+			return (getPreferences().getBoolean(PREFERENCE_DEFAULT_TRANSPARENCY, false));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return (true);
+		return (false);
 	}
 
 	public float getTransparency() {
